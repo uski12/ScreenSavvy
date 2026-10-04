@@ -13,7 +13,7 @@ services:
 
     backend:
         build:
-            context: ./api
+            context: ./services/user-service
             dockerfile: Dockerfile
         ports:
             - "5000:5000"
