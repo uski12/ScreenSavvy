@@ -8,8 +8,8 @@ The plan is to convert this into a microservice architecture and test how it sca
 
 ### Plan, to-do list
 
-[X] Dockerize monolith
-[ ] Load test with k6/Locust
-[X] Split into microservices
-[ ] Load test with k6/Locust after microservicising
-[ ] Add more functionalities to test distributed systems concepts (chat features, eventual/strong consistency, availability, etc.)
+[X] Dockerize monolith  
+[ ] Load test with k6/Locust  
+[X] Split into microservices  
+[ ] Load test with k6/Locust after microservicising  
+[ ] Add more functionalities to test distributed systems concepts (chat features, eventual/strong consistency, availability, etc.)  
