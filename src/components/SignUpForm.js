@@ -2,6 +2,7 @@ import { useState } from 'react';
 import InputField from './InputField';
 import Button from './FormButton';
 import axios from "axios";
+import backend from "../backend";
 
 const SignUpForm = () => {
     const [username, setUsername] = useState('');
@@ -22,7 +23,7 @@ const SignUpForm = () => {
 
         if (password) {
             try {
-                const response = await axios.post("http://localhost:5000/api/user/signup", user); //adds user data to database
+                const response = await backend.post("/user/signup", user); //adds user data to database
                 alert(response.data.msg);
                 setError('');
                 setUsername('');

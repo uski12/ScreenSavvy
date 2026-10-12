@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "../axios";
 import Carousel from "./Carousel";
 
-const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
 const Search = ({ searchQuery, onReset }) => {
     const [searchResults, setSearchResults] = useState([]);
@@ -12,8 +11,8 @@ const Search = ({ searchQuery, onReset }) => {
 
         try {
             const [moviesResponse, tvResponse] = await Promise.all([
-                axios.get(`search/movie?api_key=${API_KEY}&query=${searchQuery}`),
-                axios.get(`search/tv?api_key=${API_KEY}&query=${searchQuery}`),
+                axios.get(`search/movie?query=${searchQuery}`),
+                axios.get(`search/tv?query=${searchQuery}`),
             ]);
 
             const movies = moviesResponse.data.results.map(movie => ({ ...movie, media_type: 'movie' }));

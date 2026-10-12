@@ -2,6 +2,7 @@ import YouTube from "react-youtube";
 import { useState, useEffect } from "react";
 import { FaPlay, FaPlus, FaStar, FaCheck } from 'react-icons/fa'
 import axios from "axios";
+import backend from "../backend";
 import { useAuth } from "../AuthProvider";
 import { NavLink } from "react-router-dom";
 
@@ -18,7 +19,7 @@ const ShowDetails = ({ showDetails, trailer, type }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get("http://localhost:5000/api/user/get", {params: {email: user.user}});
+            const response = await backend.get("/user/get", {params: {email: user.user}});
             console.log(response);
             const ye = response.data.arr.some(item =>
             item.id === showDetails.id && item.type === type
@@ -85,11 +86,11 @@ const ShowDetails = ({ showDetails, trailer, type }) => {
                         </button>
                         <button className="flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-white" onClick={ async () => {
                             if(watched) {
-                                const response = await axios.delete("http://localhost:5000/api/user/remove", {data: { email: user.user, id: showDetails.id, type: type}});
+                                const response = await backend.delete("/user/remove", {data: { email: user.user, id: showDetails.id, type: type}});
                                 console.log(user.user, showDetails.id);
                                 console.log(response);
                             } else {
-                                const response = await axios.put("http://localhost:5000/api/user/add", { email: user.user, id: showDetails.id, type: type });
+                                const response = await backend.put("/user/add", { email: user.user, id: showDetails.id, type: type });
                                 console.log(user.user, showDetails.id);
                                 console.log(response);
                             }

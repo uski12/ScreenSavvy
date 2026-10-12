@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from '../axios'
+
 import ShowDetails from "../components/ShowDetails";
 import ReviewDetails from "../components/ReviewDetails"
 import Navbar from "../components/Navbar";
 
-
-const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
 const DetailsPage = () => {
     const { type, id } = useParams({});
@@ -25,9 +24,9 @@ const DetailsPage = () => {
             setLoading(true); // Start loading
             try {
                 const [detailsResponse, reviewsResponse, trailerResponse] = await Promise.all([
-                    axios.get(`/${type}/${id}?api_key=${API_KEY}&language=en-US`),
-                    axios.get(`/${type}/${id}/reviews?api_key=${API_KEY}&language=en-US`),
-                    axios.get(`/${type}/${id}/videos?api_key=${API_KEY}&language=en-US`)
+                    axios.get(`/${type}/${id}?language=en-US`),
+                    axios.get(`/${type}/${id}/reviews?language=en-US`),
+                    axios.get(`/${type}/${id}/videos?language=en-US`)
                 ]);
 
                 const sortedReviews = {

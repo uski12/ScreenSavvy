@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FaBookmark, FaStar, FaCheck } from "react-icons/fa";
 import { useAuth } from "../AuthProvider";
 import axios from "axios";
+import backend from "../backend";
 import { useState, useEffect } from "react";
 
 const Card = ({ image_src, image_alt, type, id, title, releaseDate, rating }) => {
@@ -10,7 +11,7 @@ const Card = ({ image_src, image_alt, type, id, title, releaseDate, rating }) =>
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get("http://localhost:5000/api/user/get", { params: { email: auth.user } });
+            const response = await backend.get("/user/get", { params: { email: auth.user } });
             console.log(response);
             const isWatched = response.data.arr.some(item => item.id === id && item.type === type);
             setWatched(isWatched);
@@ -24,13 +25,13 @@ const Card = ({ image_src, image_alt, type, id, title, releaseDate, rating }) =>
         e.preventDefault();
 
         if (watched) {
-            const response = await axios.delete("http://localhost:5000/api/user/remove", {
+            const response = await backend.delete("/user/remove", {
                 data: { email: auth.user, id: id, type: type }
             });
             console.log(auth.user, id);
             console.log(response);
         } else {
-            const response = await axios.put("http://localhost:5000/api/user/add", { email: auth.user, id: id, type: type });
+            const response = await backend.put("/user/add", { email: auth.user, id: id, type: type });
             console.log(auth.user, id);
             console.log(response);
         }

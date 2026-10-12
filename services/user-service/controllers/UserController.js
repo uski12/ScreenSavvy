@@ -5,7 +5,6 @@ module.exports.addToWatchedList = async (req, res) => {
         const { email, id, type } = req.body;
         const user = await User.findOne({ email });
 
-        console.log(email, id, type);
         if(user) {
             const { watchedList } = user;
 
@@ -29,7 +28,6 @@ module.exports.getWatchedList = async (req, res) => {
     try {
         const { email } = req.query;
         const user = await User.findOne({ email: email });
-        console.log(user);
         return res.json({ msg: "Success getting list", arr: user.watchedList });
 
     } catch (error) {
@@ -80,7 +78,6 @@ module.exports.signUp = async (req, res) => {
             password: password,
             watchedList: [],
         };
-        console.log(data);
         await User.create(data);
         return res.json({ msg: "User created" });
 
@@ -94,7 +91,6 @@ module.exports.signUp = async (req, res) => {
 module.exports.login = async (req, res) => {
     try {
         const { email, password } = req.query;
-        console.log(res.query);
         const user = await User.findOne({ email: email });
 
 
@@ -117,7 +113,6 @@ module.exports.deleteAccount = async (req, res) => {
         const { email } = req.body;
 
         const user = await User.findOne({ email });
-        console.log(email);
 
         if (user) {
             await User.deleteOne({ email });

@@ -1,6 +1,6 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import backend from "./backend";
 
 const AuthContext = createContext();
 
@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
 
     const loginAction = async (data) => {
         try {
-            const res = await axios.get("http://localhost:5000/api/user/login", {params: { email: data.email, password: data.password}});
+            const res = await backend.get("/user/login", {params: { email: data.email, password: data.password}});
             console.log(res);
             if (res.data.token) {
                 setUser(data.email);

@@ -6,16 +6,15 @@ import Navbar from "../components/Navbar";
 import axios from "../axios";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const basePosterUrl = "https://image.tmdb.org/t/p/original/";
 
 const fetchGenres = async (type) => {
-    const response = await axios.get(`genre/${type}/list?api_key=${API_KEY}`);
+    const response = await axios.get(`genre/${type}/list`);
     return response.data.genres;
 };
 
 const fetchLanguages = async () => {
-    const response = await axios.get(`configuration/languages?api_key=${API_KEY}`);
+    const response = await axios.get(`configuration/languages`);
     return response.data;
 };
 
@@ -55,8 +54,8 @@ const ShowsPage = ({ type }) => {
             try {
                 // Fetch genres, languages, and shows concurrently
                 const [genresResponse, languagesResponse, showsResponse] = await Promise.all([
-                    axios.get(`genre/${type}/list?api_key=${API_KEY}`),
-                    axios.get(`configuration/languages?api_key=${API_KEY}`),
+                    axios.get(`genre/${type}/list`),
+                    axios.get(`configuration/languages`),
                     (async () => {
                         const shows = [];
                         let page = 1;
@@ -64,7 +63,7 @@ const ShowsPage = ({ type }) => {
     
                         while (page <= totalPages) {
                             const response = await axios.get(
-                                `discover/${type}?api_key=${API_KEY}&page=${page}&${releaseDate}.lte=${today}&sort_by=${releaseDate}.desc`
+                                `discover/${type}?page=${page}&${releaseDate}.lte=${today}&sort_by=${releaseDate}.desc`
                             );
                             shows.push(...response.data.results);
                             page++;

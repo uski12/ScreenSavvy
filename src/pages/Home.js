@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar'
 import Carousel from '../components/Carousel'
 import request from '../request'
-import axios from '../axios';
+import axios from "../axios";
+import backend from '../backend';
 import { useAuth } from "../AuthProvider"
-
-const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
 const Home = () => {
   const auth = useAuth();
@@ -23,7 +22,7 @@ const Home = () => {
       const [trendingResponse, comedyResponse, userResponse] = await Promise.all([
         axios.get(request.fetchTrending),
         axios.get(request.fetchComedyMovies),
-        axios.get("http://localhost:5000/api/user/get", { params: { email: auth.user } }),
+        backend.get("/user/get", { params: { email: auth.user } }),
       ]);
       setTrendingMovies(trendingResponse.data.results);
       setComedyMovies(comedyResponse.data.results);
@@ -44,7 +43,7 @@ const Home = () => {
     try {
       setLoading(true);
       const detailsRequests = watchList.map(item =>
-      axios.get(`${item.type}/${item.id}?api_key=${API_KEY}`)
+      axios.get(`${item.type}/${item.id}`)
       );
       const detailsResponses = await Promise.all(detailsRequests);
 

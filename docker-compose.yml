@@ -4,8 +4,6 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.frontend
-            args:
-                REACT_APP_TMDB_API_KEY: ${REACT_APP_TMDB_API_KEY}
         ports:
             - "3000:80"
         depends_on:
@@ -19,6 +17,7 @@ services:
             - "5000:5000"
         environment:
             MONGO_URI: mongodb://mongo:27017/users
+            REACT_APP_TMDB_API_KEY: ${REACT_APP_TMDB_API_KEY}
         depends_on:
             - mongo
 

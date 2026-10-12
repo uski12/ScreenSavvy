@@ -4,6 +4,7 @@ import { useState } from "react";
 import Search from "./Search";
 import { useAuth } from '../AuthProvider';
 import axios from "axios";
+import backend from "../backend";
 
 const Navbar = () => {
     const auth = useAuth();
@@ -43,7 +44,7 @@ const Navbar = () => {
 
 
     const deleteAcc = async () => {
-        const response = await axios.delete("http://localhost:5000/api/user/delete", {data: { email: auth.user }});
+        const response = await backend.delete("/user/delete", {data: { email: auth.user }});
         console.log(auth.user);
         auth.logOut();
     }
