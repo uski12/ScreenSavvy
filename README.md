@@ -4,6 +4,8 @@ A full-stack project created using the MERN stack. With working database connect
 
 The plan is to convert this into a microservice architecture and test how it scales up. And also add features along the way to test out system design concepts.
 
+Test plan: allocate 6 CPU cores, 6 GB of RAM to the entire system and test monolight vs microservices performance
+
 
 
 ## Plan, to-do list
@@ -22,4 +24,4 @@ The plan is to convert this into a microservice architecture and test how it sca
 
 - Moved TMDB api key from frontend to backend (finally)
 - Created TMDB cache in our endpoint
-
+- k6 testing: standardising formats and all
